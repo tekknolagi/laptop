@@ -53,6 +53,11 @@ case "$SHELL" in
     ;;
 esac
 
+tools_install() {
+    fancy_echo 'Installing command line tools...'
+    xcode-select --install
+}
+
 brew_install_or_upgrade() {
   if brew_is_installed "$1"; then
     if brew_is_upgradable "$1"; then
@@ -111,6 +116,8 @@ gem_install_or_update() {
     gem install "$@"
   fi
 }
+
+tools_install
 
 if ! command -v brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
