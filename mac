@@ -55,7 +55,7 @@ esac
 
 tools_install() {
     fancy_echo 'Installing command line tools...'
-    xcode-select --install
+    xcode-select --install || true
 }
 
 brew_install_or_upgrade() {
@@ -117,7 +117,32 @@ gem_install_or_update() {
   fi
 }
 
+import_rvm_key() {
+    gpg2 --keyserver hkp://keys.gnupg.net --recv-keys\
+	 409B6B1796C275462A1703113804BB82D39DC0E3
+}
+
+install_rvm() {
+    import_rvm_key
+
+    ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
+    \curl -sSL https://get.rvm.io | bash -s stable --ruby=$ruby_version
+    rvm use --default $ruby_version
+
+    gem update --system
+
+    gem_install_or_update 'bundler'
+
+    fancy_echo "Configuring Bundler ..."
+    number_of_cores=$(sysctl -n hw.ncpu)
+    bundle config --global jobs $((number_of_cores - 1))
+}
+
 tools_install
+
+cask_install() {
+    brew_install_or_upgrade "Caskroom/cask/$1" || echo "upgrading \`$1' failed"
+}
 
 if ! command -v brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
@@ -140,7 +165,7 @@ brew update
 brew_install_or_upgrade 'git'
 brew_install_or_upgrade 'astyle'
 brew_install_or_upgrade 'postgres'
-brew_launchctl_restart 'postgresql'
+#brew_launchctl_restart 'postgresql'
 brew_install_or_upgrade 'the_silver_searcher'
 brew_install_or_upgrade 'vim'
 brew_install_or_upgrade 'emacs'
@@ -149,27 +174,20 @@ brew_install_or_upgrade 'tmux'
 brew_install_or_upgrade 'reattach-to-user-namespace'
 brew_install_or_upgrade 'imagemagick'
 brew_install_or_upgrade 'gnupg2'
-brew_install_or_upgrade 'openssl'
-brew unlink openssl && brew link openssl --force
 brew_install_or_upgrade 'libyaml'
 
-gpg2 --keyserver hkp://keys.gnupg.net --recv-keys\
-     409B6B1796C275462A1703113804BB82D39DC0E3
+brew_install_or_upgrade 'openssl'
+brew unlink openssl && brew link openssl --force
 
-ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
-
-\curl -sSL https://get.rvm.io | bash -s stable --ruby=$ruby_version
-rvm use --default $ruby_version
-
-gem update --system
-
-gem_install_or_update 'bundler'
-
-fancy_echo "Configuring Bundler ..."
-  number_of_cores=$(sysctl -n hw.ncpu)
-  bundle config --global jobs $((number_of_cores - 1))
-
+install_rvm
 brew_install_or_upgrade 'heroku-toolbelt'
+
+cask_install 'caffeine'
+cask_install 'crashplan'
+cask_install 'iterm2'
+cask_install 'macs-fan-control'
+cask_install 'thunderbird'
+cask_install 'vlc'
 
 if [ -f "$HOME/.laptop.local" ]; then
   . "$HOME/.laptop.local"
