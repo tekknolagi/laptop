@@ -175,6 +175,8 @@ brew_install_or_upgrade 'reattach-to-user-namespace'
 brew_install_or_upgrade 'imagemagick'
 brew_install_or_upgrade 'gnupg2'
 brew_install_or_upgrade 'libyaml'
+brew_install_or_upgrade 'jq'
+
 
 brew_install_or_upgrade 'openssl'
 brew unlink openssl && brew link openssl --force
@@ -192,6 +194,9 @@ cask_install 'thunderbird'
 cask_install 'vlc'
 cask_install 'dropbox'
 cask_install 'keepassx'
+
+# Somehow copy over previous zsh config and other crap.
+# Emacs, Vim too...
 
 if [ -f "$HOME/.laptop.local" ]; then
   . "$HOME/.laptop.local"
