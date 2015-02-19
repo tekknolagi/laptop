@@ -22,7 +22,7 @@ append_to_zshrc() {
   fi
 
   if ! grep -Fqs "$text" "$zshrc"; then
-    if [ "$skip_new_line" -eq 1 ]; then
+    if [[ "$skip_new_line" -eq 1 ]]; then
       printf "%s\n" "$text" >> "$zshrc"
     else
       printf "\n%s\n" "$text" >> "$zshrc"
@@ -137,10 +137,11 @@ brew_launchctl_restart 'postgresql'
 brew_install_or_upgrade 'the_silver_searcher'
 brew_install_or_upgrade 'vim'
 brew_install_or_upgrade 'emacs'
+brew_install_or_upgrade 'most'
 brew_install_or_upgrade 'tmux'
 brew_install_or_upgrade 'reattach-to-user-namespace'
 brew_install_or_upgrade 'imagemagick'
-brew_install_or_ugprade 'gnupg2'
+brew_install_or_upgrade 'gnupg2'
 brew_install_or_upgrade 'openssl'
 brew unlink openssl && brew link openssl --force
 brew_install_or_upgrade 'libyaml'
@@ -150,8 +151,8 @@ gpg2 --keyserver hkp://keys.gnupg.net --recv-keys\
 
 ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
 
-\curl -sSL https://get.rvm.io | bash -s stable --ruby=$(ruby_version)
-rvm use --default $(ruby_version)
+\curl -sSL https://get.rvm.io | bash -s stable --ruby=$ruby_version
+rvm use --default $ruby_version
 
 gem update --system
 
