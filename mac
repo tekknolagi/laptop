@@ -186,6 +186,8 @@ cask_install 'caffeine'
 cask_install 'crashplan'
 cask_install 'iterm2'
 cask_install 'macs-fan-control'
+cask_install 'firefox'
+cask_install 'spectacle'
 cask_install 'thunderbird'
 cask_install 'vlc'
 
