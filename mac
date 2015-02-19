@@ -190,6 +190,8 @@ cask_install 'firefox'
 cask_install 'spectacle'
 cask_install 'thunderbird'
 cask_install 'vlc'
+cask_install 'dropbox'
+cask_install 'keepassx'
 
 if [ -f "$HOME/.laptop.local" ]; then
   . "$HOME/.laptop.local"
