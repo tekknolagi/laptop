@@ -196,7 +196,7 @@ cask_install 'dropbox'
 cask_install 'keepassx'
 
 # Somehow copy over previous zsh config and other crap.
-# Emacs, Vim too...
+# Emacs, Vim, Git too...
 
 if [ -f "$HOME/.laptop.local" ]; then
   . "$HOME/.laptop.local"
