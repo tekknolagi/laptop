@@ -187,6 +187,9 @@ brew unlink openssl && brew link openssl --force
 install_rvm
 brew_install_or_upgrade 'heroku-toolbelt'
 
+brew_tap 'caskroom/cask'
+brew_install_or_upgrade 'brew-cask'
+
 cask_install 'caffeine'
 cask_install 'crashplan'
 cask_install 'iterm2'
