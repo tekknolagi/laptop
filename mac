@@ -163,6 +163,7 @@ fancy_echo "Updating Homebrew formulas ..."
 brew update
 
 brew_install_or_upgrade 'git'
+brew_install_or_upgrade 'hub'
 brew_install_or_upgrade 'astyle'
 brew_install_or_upgrade 'the_silver_searcher'
 brew_install_or_upgrade 'most'
@@ -190,7 +191,9 @@ brew_install_or_upgrade 'heroku-toolbelt'
 brew_tap 'caskroom/cask'
 brew_install_or_upgrade 'brew-cask'
 
+cask_install 'goofy'
 cask_install 'caffeine'
+cask_install 'alfred'
 cask_install 'crashplan'
 cask_install 'iterm2'
 cask_install 'macs-fan-control'
@@ -200,6 +203,7 @@ cask_install 'thunderbird'
 cask_install 'vlc'
 cask_install 'dropbox'
 cask_install 'keepassx'
+cask_install 'virtualbox'
 
 # Somehow copy over previous zsh config and other crap.
 # Emacs, Vim, Git too...
